@@ -1,8 +1,13 @@
 CC = cc
 
 SRCS_RAW =	philo.c\
-			philo_utils.c\
+			utils.c\
 			parsing.c\
+			monitoring.c\
+			routine.c\
+			structs.c\
+			threads.c\
+			time.c
 
 OBJS_DIR = objs/
 
@@ -30,7 +35,6 @@ $(OBJS_DIR)%.o : $(SRCS_DIR)%.c | $(OBJS_DIR)
 
 clean:
 	rm -rf $(OBJS_DIR)
-	make --no-print-directory -C ./libft fclean
 
 bonus: all
 

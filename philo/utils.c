@@ -6,7 +6,7 @@
 /*   By: marde-vr <marde-vr@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 10:19:51 by marde-vr          #+#    #+#             */
-/*   Updated: 2024/03/12 10:20:56 by marde-vr         ###   ########.fr       */
+/*   Updated: 2024/03/13 17:25:35 by marde-vr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,4 +43,19 @@ int	ft_atoi(const char *nptr)
 		i++;
 	}
 	return (count * sign);
+}
+
+void	destroy_mutexes(t_philos *philos)
+{
+	int	i;
+
+	i = 0;
+	while (i < philos->nb_of_philos)
+	{
+		pthread_mutex_destroy(&philos->fork_locks[i]);
+		i++;
+	}
+	pthread_mutex_destroy(&philos->write_lock);
+	pthread_mutex_destroy(&philos->done_lock);
+	pthread_mutex_destroy(&philos->meal_lock);
 }
