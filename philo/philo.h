@@ -36,7 +36,7 @@ typedef struct	s_philos
 	size_t			start_time;
 	int				nb_of_philos;
 	pthread_t		monitor_thread;
-	pthread_mutex_t *forks;
+	pthread_mutex_t *fork_locks;
 	pthread_mutex_t	write_lock;
 	pthread_mutex_t	dead_lock;
 	pthread_mutex_t	meal_lock;

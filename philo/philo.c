@@ -6,12 +6,13 @@
 /*   By: marde-vr <marde-vr@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 21:08:32 by marde-vr          #+#    #+#             */
-/*   Updated: 2024/03/13 11:12:23 by marde-vr         ###   ########.fr       */
+/*   Updated: 2024/03/13 13:31:52 by marde-vr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 #include <pthread.h>
+#include <stdlib.h>
 #include <unistd.h>
 
 size_t	get_current_time(void)
@@ -79,8 +80,8 @@ int	philos_done_eating(t_philos *philos)
 	i = 1;
 	while (philos->philos[i])
 	{
-		if (philos->philos[i]->nb_times_to_eat != 0) //debug
-			printf("meals_eaten by %d: %d/%d\n", i, philos->philos[i]->meals_eaten, philos->philos[i]->nb_times_to_eat); //debug
+		//if (philos->philos[i]->nb_times_to_eat != 0) //debug
+		//	printf("meals_eaten by %d: %d/%d\n", i, philos->philos[i]->meals_eaten, philos->philos[i]->nb_times_to_eat); //debug
 		if (philos->philos[i]->nb_times_to_eat == 0 || philos->philos[i]->meals_eaten < philos->philos[i]->nb_times_to_eat)
 			return (0);
 		i++;
@@ -143,11 +144,11 @@ t_philo	*init_philo(int argc, char **argv, int philo_i, t_philos *philos)
 		return (philo);
 	philo->start_time = &(philos->start_time);
 	philo->is_dead = philos->is_dead;
-	philo->l_fork = &philos->forks[philo_i - 1];
+	philo->l_fork = &philos->fork_locks[philo_i - 1];
 	if (philo_i == philos->nb_of_philos)
-		philo->r_fork = &philos->forks[0];
+		philo->r_fork = &philos->fork_locks[0];
 	else
-		philo->r_fork = &philos->forks[philo_i];
+		philo->r_fork = &philos->fork_locks[philo_i];
 	philo->write_lock = &philos->write_lock;
 	philo->dead_lock = &philos->dead_lock;
 	philo->meal_lock = &philos->meal_lock;
@@ -155,16 +156,30 @@ t_philo	*init_philo(int argc, char **argv, int philo_i, t_philos *philos)
 	return (philo);
 }
 
-int	init_philos(t_philos *philos, int argc, char **argv, int nb_of_philos)
+int	init_forks(t_philos *philos)
 {
-	philos->philos = malloc(sizeof(t_philo) * (nb_of_philos + 1));
+	philos->fork_locks = malloc(sizeof(pthread_mutex_t) * philos->nb_of_philos);
+	if (!philos->fork_locks)
+		return (1);
+	int i = 0;
+	while (i < philos->nb_of_philos)
+	{
+		pthread_mutex_init(&philos->fork_locks[i], NULL);
+		i++;
+	}
+	return (0);
+}
+
+int	init_philos(t_philos *philos, int argc, char **argv)
+{
+	init_forks(philos);
+	philos->philos = malloc(sizeof(t_philo) * (philos->nb_of_philos + 1));
 	if (!philos->philos)
 	{
 		free_philos(philos);
 		return (1);
 	}
 
-	philos->nb_of_philos = nb_of_philos;
 	philos->is_dead = malloc(sizeof(int));
 	*(philos->is_dead) = 0;
 
@@ -174,7 +189,7 @@ int	init_philos(t_philos *philos, int argc, char **argv, int nb_of_philos)
 
 	int	i;
 	i = 1;
-	while (i <= nb_of_philos)
+	while (i <= philos->nb_of_philos)
 	{
 		philos->philos[i] = init_philo(argc, argv, i, philos);
 		if (!philos->philos[i])
@@ -197,17 +212,15 @@ void	join_threads(t_philos *philos)
 		pthread_join(philos->philos[i]->thread, 0);
 		i++;
 	}
-	printf("joined all threads\n");
 }
 
 void	destroy_mutexes(t_philos *philos)
 {
-	printf("Destroying mutexes\n");
 	int i;
 	i = 0;
 	while (i < philos->nb_of_philos)
 	{
-		pthread_mutex_destroy(&philos->forks[i]);
+		pthread_mutex_destroy(&philos->fork_locks[i]);
 		i++;
 	}
 	pthread_mutex_destroy(&philos->write_lock);
@@ -225,7 +238,7 @@ void	*monitor_philos(void *philos)
 		if ((philos_starving(philos)) || (philos_done_eating(philos)))
 			*(s_philos->is_dead) = 1;
 	}
-	printf("is_dead:%d\n", *s_philos->is_dead);
+	//printf("is_dead:%d\n", *s_philos->is_dead);
 	return (0);
 }
 
@@ -256,6 +269,8 @@ void	*philo_routine(void *philo)
 	//printf("is_dead: %d\n", *s_philo->is_dead);
 	while (!*s_philo->is_dead)
 	{
+		if (s_philo->id % 2)
+			usleep(1500);
 		philo_eat(s_philo);
 		philo_sleep(s_philo);
 		philo_think(s_philo);
@@ -285,30 +300,15 @@ void	create_threads(t_philos *philos)
 int	main(int argc, char **argv)
 {
 	t_philos	*philos;
-	int	nb_of_philos;
 
 	if (parse_args(argc, argv))
 		return (1);
-
-	nb_of_philos = ft_atoi(argv[1]);
 	philos = malloc(sizeof(t_philos));
 	if (!philos)
 		return (1);
-
-	pthread_mutex_t *forks;
-	forks = malloc(sizeof(pthread_mutex_t) * ft_atoi(argv[1]));
-	int i = 0;
-	while (i < philos->nb_of_philos)
-	{
-		pthread_mutex_init(&forks[i], NULL);
-		i++;
-	}
-	philos->forks = forks;
-
-	if (init_philos(philos, argc, argv, nb_of_philos))
+	philos->nb_of_philos = ft_atoi(argv[1]);
+	if (init_philos(philos, argc, argv))
 		return (1);
-	
-
 	create_threads(philos);
 	join_threads(philos);
 	destroy_mutexes(philos);
