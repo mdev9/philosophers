@@ -6,7 +6,7 @@
 /*   By: marde-vr <marde-vr@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 10:21:04 by marde-vr          #+#    #+#             */
-/*   Updated: 2024/03/12 15:29:27 by marde-vr         ###   ########.fr       */
+/*   Updated: 2024/03/13 16:47:58 by marde-vr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,4 +67,3 @@ int	parse_args(int argc, char **argv)
 		return (1);
 	return (0);
 }
-
