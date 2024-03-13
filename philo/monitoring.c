@@ -6,7 +6,7 @@
 /*   By: marde-vr <marde-vr@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 17:22:06 by marde-vr          #+#    #+#             */
-/*   Updated: 2024/03/13 17:22:43 by marde-vr         ###   ########.fr       */
+/*   Updated: 2024/03/13 18:00:24 by marde-vr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ int	philos_starving(t_philos *philos)
 		{
 			pthread_mutex_unlock(&philos->meal_lock);
 			time_printf(cur_philo, "died");
+			pthread_mutex_unlock(cur_philo->r_fork);
 			return (1);
 		}
 		i++;
