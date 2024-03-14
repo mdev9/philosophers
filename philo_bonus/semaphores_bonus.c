@@ -6,7 +6,7 @@
 /*   By: marde-vr <marde-vr@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 09:00:59 by marde-vr          #+#    #+#             */
-/*   Updated: 2024/03/14 09:08:36 by marde-vr         ###   ########.fr       */
+/*   Updated: 2024/03/14 09:23:35 by marde-vr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,8 @@ void	init_semaphores(t_philos *philos)
 
 void	ft_sem_wait(void *sem)
 {
-	if (sem_wait(sem) == -1) {
+	if (sem_wait(sem) == -1)
+	{
 		printf("Semaphore wait failed");
 		exit(EXIT_FAILURE);
 	}
@@ -50,7 +51,8 @@ void	ft_sem_wait(void *sem)
 
 void	ft_sem_post(void *sem)
 {
-	if (sem_post(sem) == -1) {
+	if (sem_post(sem) == -1)
+	{
 		printf("Semaphore post failed");
 		exit(EXIT_FAILURE);
 	}

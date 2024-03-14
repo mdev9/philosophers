@@ -6,7 +6,7 @@
 /*   By: marde-vr <marde-vr@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 10:19:51 by marde-vr          #+#    #+#             */
-/*   Updated: 2024/03/14 08:58:04 by marde-vr         ###   ########.fr       */
+/*   Updated: 2024/03/14 09:23:14 by marde-vr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,26 +47,24 @@ int	ft_atoi(const char *nptr)
 
 void	destroy_semaphores(t_philos *philos)
 {
-	if (sem_destroy(&philos->forks_sem) == -1) 
+	if (sem_destroy(&philos->forks_sem) == -1)
 	{
-        printf("Semaphore destruction failed");
-        exit(EXIT_FAILURE);
-    }
-	if (sem_destroy(&philos->write_sem) == -1) 
+		printf("Semaphore destruction failed");
+		exit(EXIT_FAILURE);
+	}
+	if (sem_destroy(&philos->write_sem) == -1)
 	{
-        printf("Semaphore destruction failed");
-        exit(EXIT_FAILURE);
-    }
-	if (sem_destroy(&philos->done_sem) == -1) 
+		printf("Semaphore destruction failed");
+		exit(EXIT_FAILURE);
+	}
+	if (sem_destroy(&philos->done_sem) == -1)
 	{
-        printf("Semaphore destruction failed");
-        exit(EXIT_FAILURE);
-    }
-	if (sem_destroy(&philos->meal_sem) == -1) 
+		printf("Semaphore destruction failed");
+		exit(EXIT_FAILURE);
+	}
+	if (sem_destroy(&philos->meal_sem) == -1)
 	{
-        printf("Semaphore destruction failed");
-        exit(EXIT_FAILURE);
-    }
-	//pthread_mutex_destroy(&philos->done_sem);
-	//pthread_mutex_destroy(&philos->meal_sem);
+		printf("Semaphore destruction failed");
+		exit(EXIT_FAILURE);
+	}
 }
