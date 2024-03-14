@@ -6,7 +6,7 @@
 /*   By: marde-vr <marde-vr@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 16:47:26 by marde-vr          #+#    #+#             */
-/*   Updated: 2024/03/14 09:09:04 by marde-vr         ###   ########.fr       */
+/*   Updated: 2024/03/14 10:34:51 by marde-vr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,28 +17,29 @@
 # include <stdlib.h>
 # include <pthread.h>
 # include <semaphore.h>
+# include <fcntl.h>
 # include <unistd.h>
 # include <sys/time.h>
 
 typedef struct s_philo
 {
-	pthread_t	thread;
-	int			id;
-	int			*is_done;
-	int			is_eating;
-	int			meals_eaten;
-	int			nb_of_philos;
-	size_t		last_meal;
-	size_t		*start_time;
-	size_t		time_to_die;
-	size_t		time_to_eat;
-	size_t		time_to_sleep;
-	int			nb_times_to_eat;
-	sem_t		*forks_sem;
-	sem_t		*write_sem;
-	sem_t		*done_sem;
-	sem_t		*meal_sem;
-}				t_philo;
+	int		pid;
+	int		id;
+	int		*is_done;
+	int		is_eating;
+	int		meals_eaten;
+	int		nb_of_philos;
+	size_t	last_meal;
+	size_t	*start_time;
+	size_t	time_to_die;
+	size_t	time_to_eat;
+	size_t	time_to_sleep;
+	int		nb_times_to_eat;
+	sem_t	*forks_sem;
+	sem_t	*write_sem;
+	sem_t	*done_sem;
+	sem_t	*meal_sem;
+}			t_philo;
 
 typedef struct s_philos
 {
@@ -47,10 +48,10 @@ typedef struct s_philos
 	size_t		start_time;
 	int			nb_of_philos;
 	pthread_t	monitor_thread;
-	sem_t		forks_sem;
-	sem_t		write_sem;
-	sem_t		done_sem;
-	sem_t		meal_sem;
+	sem_t		*forks_sem;
+	sem_t		*write_sem;
+	sem_t		*done_sem;
+	sem_t		*meal_sem;
 }				t_philos;
 
 int		is_digit(int c);
@@ -67,7 +68,5 @@ void	join_threads(t_philos *philos);
 void	destroy_semaphores(t_philos *philos);
 void	free_philos(t_philos *philos);
 void	init_semaphores(t_philos *philos);
-void	ft_sem_wait(void *sem);
-void	ft_sem_post(void *sem);
 
 #endif

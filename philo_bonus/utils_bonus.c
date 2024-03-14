@@ -6,11 +6,12 @@
 /*   By: marde-vr <marde-vr@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 10:19:51 by marde-vr          #+#    #+#             */
-/*   Updated: 2024/03/14 09:23:14 by marde-vr         ###   ########.fr       */
+/*   Updated: 2024/03/14 10:05:26 by marde-vr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_bonus.h"
+#include <semaphore.h>
 
 int	is_digit(int c)
 {
@@ -43,28 +44,4 @@ int	ft_atoi(const char *nptr)
 		i++;
 	}
 	return (count * sign);
-}
-
-void	destroy_semaphores(t_philos *philos)
-{
-	if (sem_destroy(&philos->forks_sem) == -1)
-	{
-		printf("Semaphore destruction failed");
-		exit(EXIT_FAILURE);
-	}
-	if (sem_destroy(&philos->write_sem) == -1)
-	{
-		printf("Semaphore destruction failed");
-		exit(EXIT_FAILURE);
-	}
-	if (sem_destroy(&philos->done_sem) == -1)
-	{
-		printf("Semaphore destruction failed");
-		exit(EXIT_FAILURE);
-	}
-	if (sem_destroy(&philos->meal_sem) == -1)
-	{
-		printf("Semaphore destruction failed");
-		exit(EXIT_FAILURE);
-	}
 }
