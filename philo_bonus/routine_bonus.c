@@ -6,7 +6,7 @@
 /*   By: marde-vr <marde-vr@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 17:18:10 by marde-vr          #+#    #+#             */
-/*   Updated: 2024/03/14 10:53:03 by marde-vr         ###   ########.fr       */
+/*   Updated: 2024/03/14 17:44:45 by marde-vr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,23 +44,13 @@ void	*philo_routine(void *philo)
 	t_philo	*s_philo;
 
 	s_philo = (t_philo *)philo;
-	if (s_philo->id % 2)
-		ft_usleep(10);
-	while (1)
+	if (!(s_philo->id % 2))
+		ft_usleep(15);
+	while (!*s_philo->is_done)
 	{
-		sem_wait(s_philo->done_sem);
-		if (!*s_philo->is_done)
-		{
-			sem_post(s_philo->done_sem);
-			philo_eat(s_philo);
-			philo_sleep(s_philo);
-			philo_think(s_philo);
-		}
-		else
-		{
-			sem_post(s_philo->done_sem);
-			break ;
-		}
+		philo_eat(s_philo);
+		philo_sleep(s_philo);
+		philo_think(s_philo);
 	}
 	return (0);
 }

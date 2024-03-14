@@ -6,7 +6,7 @@
 /*   By: marde-vr <marde-vr@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 16:47:26 by marde-vr          #+#    #+#             */
-/*   Updated: 2024/03/14 10:34:51 by marde-vr         ###   ########.fr       */
+/*   Updated: 2024/03/14 13:59:50 by marde-vr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <fcntl.h>
 # include <unistd.h>
 # include <sys/time.h>
+# include <sys/wait.h>
 
 typedef struct s_philo
 {
@@ -62,9 +63,9 @@ void	time_printf(t_philo *philo, char *str);
 int		ft_usleep(size_t milliseconds);
 void	*philo_routine(void *philo);
 void	*monitor_philos(void *philos);
+void	*monitor_philo(void *philo);
 int		init_philos(t_philos *philos, int argc, char **argv);
-void	create_threads(t_philos *philos);
-void	join_threads(t_philos *philos);
+void	create_philos_processes(t_philos *philos);
 void	destroy_semaphores(t_philos *philos);
 void	free_philos(t_philos *philos);
 void	init_semaphores(t_philos *philos);

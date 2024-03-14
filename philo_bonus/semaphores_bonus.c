@@ -6,7 +6,7 @@
 /*   By: marde-vr <marde-vr@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 09:00:59 by marde-vr          #+#    #+#             */
-/*   Updated: 2024/03/14 10:25:28 by marde-vr         ###   ########.fr       */
+/*   Updated: 2024/03/14 15:46:14 by marde-vr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ void	init_semaphores(t_philos *philos)
 	sem_unlink("meal_sem");
 
 	philos->forks_sem = sem_open("forks_sem", O_CREAT | O_EXCL, 0644, philos->nb_of_philos);
-	philos->write_sem = sem_open("write_sem", O_CREAT | O_EXCL, 0644, philos->nb_of_philos);
-	philos->done_sem = sem_open("done_sem", O_CREAT | O_EXCL, 0644, philos->nb_of_philos);
-	philos->meal_sem = sem_open("meal_sem", O_CREAT | O_EXCL, 0644, philos->nb_of_philos);
+	philos->write_sem = sem_open("write_sem", O_CREAT | O_EXCL, 0644, 1);
+	philos->done_sem = sem_open("done_sem", O_CREAT | O_EXCL, 0644, 1);
+	philos->meal_sem = sem_open("meal_sem", O_CREAT | O_EXCL, 0644, 1);
 }
 
 void	destroy_semaphores(t_philos *philos)
