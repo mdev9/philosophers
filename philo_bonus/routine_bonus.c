@@ -6,11 +6,12 @@
 /*   By: marde-vr <marde-vr@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 17:18:10 by marde-vr          #+#    #+#             */
-/*   Updated: 2024/03/15 13:48:05 by marde-vr         ###   ########.fr       */
+/*   Updated: 2024/03/15 14:22:08 by marde-vr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_bonus.h"
+#include <semaphore.h>
 
 void	philo_eat(t_philo *philo)
 {
@@ -45,14 +46,14 @@ void	*philo_routine(void *philo)
 
 	s_philo = (t_philo *)philo;
 	//if (!(s_philo->id % 2))
-	if (s_philo->id % 2)
+	if (!s_philo->id % 2)
 		ft_usleep(10);
-	
+	/*
 	if (s_philo->id == 1 && s_philo->meals_eaten > 0)
 	{
 		printf("yes\n");
-		usleep(10);
-	}
+		usleep(100);
+	}*/
 	sem_wait(s_philo->done_sem);
 	while (!*s_philo->is_done)
 	{

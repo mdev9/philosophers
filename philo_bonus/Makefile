@@ -26,7 +26,7 @@ all:
 	@$(MAKE) --no-print-directory -j $(NAME)
 
 $(NAME) : $(LIBFT) $(OBJS)
-	$(CC) $(FLAGS) $(OBJS) $(LIBFT) -lreadline -o $(NAME)
+	$(CC) $(FLAGS) $(OBJS) $(LIBFT) -o $(NAME)
 
 $(OBJS_DIR):
 	mkdir -p $(OBJS_DIR)
