@@ -6,7 +6,7 @@
 /*   By: marde-vr <marde-vr@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 17:22:06 by marde-vr          #+#    #+#             */
-/*   Updated: 2024/03/14 17:38:55 by marde-vr         ###   ########.fr       */
+/*   Updated: 2024/03/15 08:44:32 by marde-vr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ int	philo_done_eating(t_philo *philo)
 			sem_post(philo->meal_sem);
 			//ft_usleep(200);
 			//sem_post(philo->write_sem);
+			//sem_wait(philo->write_sem);
 			printf("%d is done eating\n", philo->id);
 			return (1);
 		}
@@ -62,7 +63,8 @@ int	philo_starving(t_philo *philo)
 	{
 		sem_post(philo->meal_sem);
 		time_printf(philo, "died");
-		//sem_post(cur_philo->forks_sem);
+		if (philo->nb_of_philos == 1)
+			sem_post(philo->forks_sem);
 		return (1);
 	}
 	sem_post(philo->meal_sem);
@@ -81,21 +83,20 @@ void	*monitor_philo(void *philo)
 		ft_usleep(1);
 		if (philo_starving(philo))
 		{
-			printf("%d exiting\n", s_philo->id);
 			sem_wait(s_philo->done_sem);
 			*(s_philo->is_done) = 1;
 			sem_post(s_philo->done_sem);
-			exit(0);
+			s_philo->died = 1;
+			break;
+			//exit(1);
 		}
 		if (philo_done_eating(philo))
 		{
-			printf("%d exiting\n", s_philo->id);
 			sem_wait(s_philo->done_sem);
 			*(s_philo->is_done) = 1;
 			sem_post(s_philo->done_sem);
-			exit(0);
+			break;
 		}
-		//printf("%d didn't exit\n", s_philo->id);
 	}
 	return (0);
 }

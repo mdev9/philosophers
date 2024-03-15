@@ -6,7 +6,7 @@
 /*   By: marde-vr <marde-vr@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 17:16:43 by marde-vr          #+#    #+#             */
-/*   Updated: 2024/03/14 16:21:26 by marde-vr         ###   ########.fr       */
+/*   Updated: 2024/03/15 08:39:25 by marde-vr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ void	time_printf(t_philo *philo, char *str)
 	printf("%ld %d ", (get_current_time() - *(philo->start_time)),
 		philo->id);
 	printf("%s\n", str);
-	if (str[0] != 'd')
-		sem_post(philo->write_sem);
+	//if (str[0] != 'd')
+	sem_post(philo->write_sem);
 }
 
 int	ft_usleep(size_t milliseconds)

@@ -6,7 +6,7 @@ SRCS_RAW =	philo_bonus.c\
 			monitoring_bonus.c\
 			routine_bonus.c\
 			structs_bonus.c\
-			threads_bonus.c\
+			processes_bonus.c\
 			time_bonus.c\
 			semaphores_bonus.c
 

@@ -6,7 +6,7 @@
 /*   By: marde-vr <marde-vr@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 17:23:23 by marde-vr          #+#    #+#             */
-/*   Updated: 2024/03/14 10:18:48 by marde-vr         ###   ########.fr       */
+/*   Updated: 2024/03/15 08:27:53 by marde-vr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 void	fill_philo_struct(t_philo *philo, int argc, char **argv, int philo_i)
 {
 	philo->id = philo_i;
+	philo->died = 0;
 	philo->is_eating = 0;
 	philo->meals_eaten = 0;
 	philo->last_meal = 0;
