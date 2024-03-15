@@ -6,12 +6,11 @@
 /*   By: marde-vr <marde-vr@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 09:00:59 by marde-vr          #+#    #+#             */
-/*   Updated: 2024/03/15 08:27:58 by marde-vr         ###   ########.fr       */
+/*   Updated: 2024/03/15 13:41:56 by marde-vr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_bonus.h"
-#include <semaphore.h>
 
 void	init_semaphores(t_philos *philos)
 {

@@ -6,12 +6,11 @@
 /*   By: marde-vr <marde-vr@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 21:08:32 by marde-vr          #+#    #+#             */
-/*   Updated: 2024/03/15 08:24:07 by marde-vr         ###   ########.fr       */
+/*   Updated: 2024/03/15 13:44:26 by marde-vr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_bonus.h"
-#include <pthread.h>
 
 int	main(int argc, char **argv)
 {

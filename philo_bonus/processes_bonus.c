@@ -6,7 +6,7 @@
 /*   By: marde-vr <marde-vr@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 17:20:32 by marde-vr          #+#    #+#             */
-/*   Updated: 2024/03/15 08:40:57 by marde-vr         ###   ########.fr       */
+/*   Updated: 2024/03/15 13:28:19 by marde-vr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,15 +31,13 @@ void	create_philos_processes(t_philos *philos)
 		{
 			pthread_create(&philos->monitor_thread, 0, monitor_philo, philos->philos[i]);
 			philo_routine(philos->philos[i]);
+			pthread_join(philos->monitor_thread, 0);
+			destroy_semaphores(philos);
 			if (philos->philos[i]->died)
 			{
-				destroy_semaphores(philos);
-				printf("a philo died\n");
 				free_philos(philos);
 				exit(1);
 			}
-			destroy_semaphores(philos);
-			pthread_join(philos->monitor_thread, 0);
 			free_philos(philos);
 			exit(0);
 		}
@@ -63,7 +61,7 @@ void	monitor_death(t_philos *philos)
 			while (i <= philos->nb_of_philos)
 			{
 				kill(philos->philos[i]->pid, 0);
-				printf("killed %d\n", philos->philos[i]->pid);
+				//printf("killed %d\n", philos->philos[i]->pid);
 				i++;
 			}
 		}
