@@ -6,7 +6,7 @@
 /*   By: marde-vr <marde-vr@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 16:47:26 by marde-vr          #+#    #+#             */
-/*   Updated: 2024/03/18 11:10:59 by marde-vr         ###   ########.fr       */
+/*   Updated: 2024/03/18 13:18:16 by marde-vr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,39 +22,42 @@
 # include <sys/time.h>
 # include <sys/wait.h>
 
-typedef struct s_philo
-{
-	int		pid;
-	int		id;
-	int		died;
-	int		*is_done;
-	int		is_eating;
-	int		meals_eaten;
-	int		nb_of_philos;
-	size_t	last_meal;
-	size_t	*start_time;
-	size_t	time_to_die;
-	size_t	time_to_eat;
-	size_t	time_to_sleep;
-	int		nb_times_to_eat;
-	sem_t	*forks_sem;
-	sem_t	*write_sem;
-	sem_t	*done_sem;
-	sem_t	*meal_sem;
-}			t_philo;
+typedef struct s_philo t_philo;
 
 typedef struct s_philos
 {
+	int				*is_done;
+	struct s_philo	**philos;
+	size_t			start_time;
+	int				nb_of_philos;
+	pthread_t		monitor_thread;
+	sem_t			*forks_sem;
+	sem_t			*write_sem;
+	sem_t			*done_sem;
+	sem_t			*meal_sem;
+}				t_philos;
+
+typedef struct s_philo
+{
+	int			pid;
+	int			id;
+	int			died;
 	int			*is_done;
-	t_philo		**philos;
-	size_t		start_time;
+	int			is_eating;
+	int			meals_eaten;
 	int			nb_of_philos;
-	pthread_t	monitor_thread;
+	size_t		last_meal;
+	size_t		*start_time;
+	size_t		time_to_die;
+	size_t		time_to_eat;
+	size_t		time_to_sleep;
+	int			nb_times_to_eat;
 	sem_t		*forks_sem;
 	sem_t		*write_sem;
 	sem_t		*done_sem;
 	sem_t		*meal_sem;
-}				t_philos;
+	t_philos	*philos;
+}			t_philo;
 
 int		is_digit(int c);
 int		ft_atoi(const char *nptr);

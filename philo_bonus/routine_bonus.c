@@ -6,7 +6,7 @@
 /*   By: marde-vr <marde-vr@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 17:18:10 by marde-vr          #+#    #+#             */
-/*   Updated: 2024/03/18 11:11:45 by marde-vr         ###   ########.fr       */
+/*   Updated: 2024/03/18 12:52:13 by marde-vr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,15 @@
 
 void	philo_eat(t_philo *philo)
 {
-	sem_wait(philo->done_sem);
+	/*sem_wait(philo->done_sem);
 	if (!philo->is_done)
 	{
+		printf("jkh\n");
 		sem_post(philo->done_sem);
 		close_semaphores(philo);
 		exit(0);
 	}
-	sem_post(philo->done_sem);
+	sem_post(philo->done_sem);*/
 	sem_wait(philo->forks_sem);
 	time_printf(philo, "has taken a fork");
 	sem_wait(philo->forks_sem);

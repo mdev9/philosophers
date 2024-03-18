@@ -6,7 +6,7 @@
 /*   By: marde-vr <marde-vr@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 17:23:23 by marde-vr          #+#    #+#             */
-/*   Updated: 2024/03/18 10:00:52 by marde-vr         ###   ########.fr       */
+/*   Updated: 2024/03/18 13:18:49 by marde-vr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ t_philo	*init_philo(int argc, char **argv, int philo_i, t_philos *philos)
 	philo->write_sem = philos->write_sem;
 	philo->done_sem = philos->done_sem;
 	philo->meal_sem = philos->meal_sem;
+	philo->philos = philos;
 	fill_philo_struct(philo, argc, argv, philo_i);
 	return (philo);
 }
