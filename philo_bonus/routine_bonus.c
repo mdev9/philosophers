@@ -6,15 +6,22 @@
 /*   By: marde-vr <marde-vr@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 17:18:10 by marde-vr          #+#    #+#             */
-/*   Updated: 2024/03/15 14:22:08 by marde-vr         ###   ########.fr       */
+/*   Updated: 2024/03/18 11:11:45 by marde-vr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_bonus.h"
-#include <semaphore.h>
 
 void	philo_eat(t_philo *philo)
 {
+	sem_wait(philo->done_sem);
+	if (!philo->is_done)
+	{
+		sem_post(philo->done_sem);
+		close_semaphores(philo);
+		exit(0);
+	}
+	sem_post(philo->done_sem);
 	sem_wait(philo->forks_sem);
 	time_printf(philo, "has taken a fork");
 	sem_wait(philo->forks_sem);
@@ -40,23 +47,17 @@ void	philo_think(t_philo *philo)
 	time_printf(philo, "is thinking");
 }
 
-void	*philo_routine(void *philo)
+void	philo_routine(t_philos *philos, int i)
 {
 	t_philo	*s_philo;
 
-	s_philo = (t_philo *)philo;
-	//if (!(s_philo->id % 2))
+	s_philo = philos->philos[i];
 	if (!s_philo->id % 2)
 		ft_usleep(10);
-	/*
-	if (s_philo->id == 1 && s_philo->meals_eaten > 0)
-	{
-		printf("yes\n");
-		usleep(100);
-	}*/
 	sem_wait(s_philo->done_sem);
 	while (!*s_philo->is_done)
 	{
+		usleep(500);
 		sem_post(s_philo->done_sem);
 		philo_eat(s_philo);
 		philo_sleep(s_philo);
@@ -64,5 +65,7 @@ void	*philo_routine(void *philo)
 		sem_wait(s_philo->done_sem);
 	}
 	sem_post(s_philo->done_sem);
+	close_semaphores(s_philo);
+	free_philos(philos);
 	exit(0);
 }

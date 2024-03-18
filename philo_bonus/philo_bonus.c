@@ -6,7 +6,7 @@
 /*   By: marde-vr <marde-vr@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 21:08:32 by marde-vr          #+#    #+#             */
-/*   Updated: 2024/03/15 13:44:26 by marde-vr         ###   ########.fr       */
+/*   Updated: 2024/03/18 10:40:49 by marde-vr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ int	main(int argc, char **argv)
 		return (1);
 	create_philos_processes(philos);
 	monitor_death(philos);
-	destroy_semaphores(philos);
+	close_semaphores(philos->philos[1]);
+	//ft_usleep(10); //usefull?
 	free_philos(philos);
 	return (0);
 }

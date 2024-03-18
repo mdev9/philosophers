@@ -6,12 +6,11 @@
 /*   By: marde-vr <marde-vr@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 17:22:06 by marde-vr          #+#    #+#             */
-/*   Updated: 2024/03/15 13:38:33 by marde-vr         ###   ########.fr       */
+/*   Updated: 2024/03/18 10:09:14 by marde-vr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_bonus.h"
-#include <semaphore.h>
 
 int	is_done_eating(t_philo *philo)
 {
@@ -41,7 +40,6 @@ int	philo_done_eating(t_philo *philo)
 			>= philo->nb_times_to_eat)
 		{
 			sem_post(philo->meal_sem);
-			//printf("%d is done eating\n", philo->id);
 			return (1);
 		}
 		sem_post(philo->meal_sem);
@@ -81,6 +79,7 @@ void	*monitor_philo(void *philo)
 			sem_post(s_philo->done_sem);
 			s_philo->died = 1;
 			sem_wait(s_philo->write_sem);
+			close_semaphores(s_philo);
 			exit(1);
 		}
 		if (philo_done_eating(philo))
@@ -88,7 +87,7 @@ void	*monitor_philo(void *philo)
 			sem_wait(s_philo->done_sem);
 			*(s_philo->is_done) = 1;
 			sem_post(s_philo->done_sem);
-			break;
+			break ;
 		}
 	}
 	return (0);
