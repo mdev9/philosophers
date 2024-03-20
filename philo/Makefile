@@ -25,7 +25,7 @@ all:
 	@$(MAKE) --no-print-directory -j $(NAME)
 
 $(NAME) : $(LIBFT) $(OBJS)
-	$(CC) $(FLAGS) $(OBJS) $(LIBFT) -lreadline -o $(NAME)
+	$(CC) $(FLAGS) $(OBJS) $(LIBFT) -o $(NAME)
 
 $(OBJS_DIR):
 	mkdir -p $(OBJS_DIR)
@@ -36,11 +36,9 @@ $(OBJS_DIR)%.o : $(SRCS_DIR)%.c | $(OBJS_DIR)
 clean:
 	rm -rf $(OBJS_DIR)
 
-bonus: all
-
 fclean: clean
 	rm -f $(NAME)
 
 re: fclean all
 
-.PHONY: all clean fclean re install bonus
+.PHONY: all clean fclean re
