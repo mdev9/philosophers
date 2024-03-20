@@ -6,7 +6,7 @@
 /*   By: marde-vr <marde-vr@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 17:20:32 by marde-vr          #+#    #+#             */
-/*   Updated: 2024/03/20 12:58:58 by marde-vr         ###   ########.fr       */
+/*   Updated: 2024/03/20 13:47:12 by marde-vr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	kill_processes(t_philos *philos)
 	i = 1;
 	while (i <= philos->nb_of_philos)
 	{
-		if (philos->philos[i]->id != 0)
+		if (philos->philos[i]->pid != 0)
 			kill(philos->philos[i]->pid, SIGKILL);
 		i++;
 	}

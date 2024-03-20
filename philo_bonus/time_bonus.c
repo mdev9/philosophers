@@ -6,7 +6,7 @@
 /*   By: marde-vr <marde-vr@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 17:16:43 by marde-vr          #+#    #+#             */
-/*   Updated: 2024/03/20 09:29:37 by marde-vr         ###   ########.fr       */
+/*   Updated: 2024/03/20 13:48:31 by marde-vr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void	time_printf(t_philo *philo, char *str)
 	size_t	time;
 
 	time = (get_current_time() - *(philo->start_time));
+	usleep(3);
 	sem_wait(philo->write_sem);
 	ft_putnbr(time);
 	write(1, " ", 1);
