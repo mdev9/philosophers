@@ -6,7 +6,7 @@
 /*   By: marde-vr <marde-vr@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 10:19:51 by marde-vr          #+#    #+#             */
-/*   Updated: 2024/03/14 10:05:26 by marde-vr         ###   ########.fr       */
+/*   Updated: 2024/03/20 09:26:39 by marde-vr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,4 +44,53 @@ int	ft_atoi(const char *nptr)
 		i++;
 	}
 	return (count * sign);
+}
+
+int	ft_strlen(char *str)
+{
+	int i;
+
+	i = 0;
+	if (!str)
+		return (0);
+	while (str[i])
+		i++;
+	return (i);
+}
+
+int	ft_putstr(const char *s)
+{
+	int	i;
+
+	i = 0;
+	if (!s)
+	{
+		write(1, &"(null)", 6);
+		return (6);
+	}
+	while (s[i])
+	{
+		write(1, &s[i], 1);
+		i++;
+	}
+	return (i);
+}
+
+int	ft_putnbr(long nb)
+{
+	int	n;
+
+	n = 0;
+	if (nb < 0)
+	{
+		write(1, "-", 1);
+		nb = nb * -1;
+		n++;
+	}
+	if (nb > 9)
+	{
+		n += ft_putnbr(nb / 10);
+	}
+	write(1, &(char){nb % 10 + 48}, 1);
+	return (n + 1);
 }

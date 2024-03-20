@@ -6,7 +6,7 @@
 /*   By: marde-vr <marde-vr@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 17:20:32 by marde-vr          #+#    #+#             */
-/*   Updated: 2024/03/18 13:36:41 by marde-vr         ###   ########.fr       */
+/*   Updated: 2024/03/20 09:22:49 by marde-vr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,7 @@ void	child_process(t_philos *philos, int i)
 		0, monitor_philo, philos->philos[i]);
 	pthread_detach(philos->monitor_thread);
 	philo_routine(philos, i);
-	//pthread_join(philos->monitor_thread, 0);
-	printf("joined\n");
 	close_semaphores(philos->philos[1]);
-	/*if (philos->philos[i]->died)
-	{
-		free_philos(philos);
-		exit(1);
-	}*/
 	free_philos(philos);
 	exit(0);
 }
@@ -47,7 +40,6 @@ void	create_philos_processes(t_philos *philos)
 		else if (philos->philos[i]->pid == 0)
 			child_process(philos, i);
 		usleep(1);
-		printf("%d\n", philos->philos[i]->pid);
 		i++;
 	}
 }

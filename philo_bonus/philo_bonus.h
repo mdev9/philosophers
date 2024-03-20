@@ -6,7 +6,7 @@
 /*   By: marde-vr <marde-vr@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 16:47:26 by marde-vr          #+#    #+#             */
-/*   Updated: 2024/03/18 13:18:16 by marde-vr         ###   ########.fr       */
+/*   Updated: 2024/03/20 09:26:36 by marde-vr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,5 +73,8 @@ void	close_semaphores(t_philo *philo);
 void	free_philos(t_philos *philos);
 void	init_semaphores(t_philos *philos);
 void	monitor_death(t_philos *philos);
+int		ft_strlen(char *str);
+int		ft_putstr(const char *s);
+int		ft_putnbr(long nb);
 
 #endif
