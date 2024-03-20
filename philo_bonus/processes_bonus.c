@@ -6,7 +6,7 @@
 /*   By: marde-vr <marde-vr@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 17:20:32 by marde-vr          #+#    #+#             */
-/*   Updated: 2024/03/20 11:20:23 by marde-vr         ###   ########.fr       */
+/*   Updated: 2024/03/20 12:58:58 by marde-vr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,9 @@ void	create_philos_processes(t_philos *philos)
 	}
 }
 
-void monitor_processes(t_philos *philos)
+void	monitor_processes(t_philos *philos)
 {
-	int i;
+	int	i;
 
 	i = 1;
 	while (i <= philos->nb_of_philos)
@@ -56,4 +56,17 @@ void monitor_processes(t_philos *philos)
 		i++;
 	}
 	sem_post(philos->dead_sem);
+}
+
+void	kill_processes(t_philos *philos)
+{
+	int	i;
+
+	i = 1;
+	while (i <= philos->nb_of_philos)
+	{
+		if (philos->philos[i]->id != 0)
+			kill(philos->philos[i]->pid, SIGKILL);
+		i++;
+	}
 }

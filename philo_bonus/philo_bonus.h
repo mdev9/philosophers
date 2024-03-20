@@ -6,7 +6,7 @@
 /*   By: marde-vr <marde-vr@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 16:47:26 by marde-vr          #+#    #+#             */
-/*   Updated: 2024/03/20 09:56:02 by marde-vr         ###   ########.fr       */
+/*   Updated: 2024/03/20 13:00:12 by marde-vr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 # include <sys/time.h>
 # include <sys/wait.h>
 
-typedef struct s_philo t_philo;
+typedef struct s_philo	t_philo;
 
 typedef struct s_philos
 {
@@ -78,5 +78,7 @@ void	monitor_processes(t_philos *philos);
 int		ft_strlen(char *str);
 int		ft_putstr(const char *s);
 int		ft_putnbr(long nb);
+void	*monitor_death(void *philos);
+void	kill_processes(t_philos *philos);
 
 #endif
