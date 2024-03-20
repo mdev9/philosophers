@@ -6,7 +6,7 @@
 /*   By: marde-vr <marde-vr@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 17:22:06 by marde-vr          #+#    #+#             */
-/*   Updated: 2024/03/18 13:20:55 by marde-vr         ###   ########.fr       */
+/*   Updated: 2024/03/20 11:11:11 by marde-vr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,10 +78,9 @@ void	*monitor_philo(void *philo)
 			*(s_philo->is_done) = 1;
 			sem_post(s_philo->done_sem);
 			s_philo->died = 1;
-			sem_wait(s_philo->write_sem);
-			close_semaphores(s_philo);
-			free_philos(s_philo->philos);
-			exit(1);
+			//sem_wait(s_philo->write_sem);
+			sem_post(s_philo->dead_sem);
+			break;
 		}
 		if (philo_done_eating(philo))
 		{

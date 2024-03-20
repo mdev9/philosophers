@@ -6,7 +6,7 @@
 /*   By: marde-vr <marde-vr@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 16:47:26 by marde-vr          #+#    #+#             */
-/*   Updated: 2024/03/20 09:26:36 by marde-vr         ###   ########.fr       */
+/*   Updated: 2024/03/20 09:56:02 by marde-vr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ typedef struct s_philos
 	sem_t			*write_sem;
 	sem_t			*done_sem;
 	sem_t			*meal_sem;
+	sem_t			*dead_sem;
 }				t_philos;
 
 typedef struct s_philo
@@ -56,6 +57,7 @@ typedef struct s_philo
 	sem_t		*write_sem;
 	sem_t		*done_sem;
 	sem_t		*meal_sem;
+	sem_t		*dead_sem;
 	t_philos	*philos;
 }			t_philo;
 
@@ -72,7 +74,7 @@ void	create_philos_processes(t_philos *philos);
 void	close_semaphores(t_philo *philo);
 void	free_philos(t_philos *philos);
 void	init_semaphores(t_philos *philos);
-void	monitor_death(t_philos *philos);
+void	monitor_processes(t_philos *philos);
 int		ft_strlen(char *str);
 int		ft_putstr(const char *s);
 int		ft_putnbr(long nb);

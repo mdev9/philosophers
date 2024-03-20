@@ -6,11 +6,12 @@
 /*   By: marde-vr <marde-vr@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 17:20:32 by marde-vr          #+#    #+#             */
-/*   Updated: 2024/03/20 09:22:49 by marde-vr         ###   ########.fr       */
+/*   Updated: 2024/03/20 11:20:23 by marde-vr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_bonus.h"
+#include <semaphore.h>
 
 void	child_process(t_philos *philos, int i)
 {
@@ -44,24 +45,15 @@ void	create_philos_processes(t_philos *philos)
 	}
 }
 
-void	monitor_death(t_philos *philos)
+void monitor_processes(t_philos *philos)
 {
-	int	i;
-	int	status;
+	int i;
 
 	i = 1;
-	status = 0;
 	while (i <= philos->nb_of_philos)
 	{
-		waitpid(-1, &status, 0);
-		if (status != 0)
-		{
-			while (i <= philos->nb_of_philos)
-			{
-				kill(philos->philos[i]->pid, SIGKILL);
-				i++;
-			}
-		}
+		wait(&philos->philos[i]->id);
 		i++;
 	}
+	sem_post(philos->dead_sem);
 }
