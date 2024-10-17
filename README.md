@@ -15,15 +15,29 @@ In this project, we simulate the dining philosophers problem, where philosophers
 
 To get started with **Philosophers**, follow these simple steps:
 
-1. **Clone the repository && Compile the project**:
+1. **Clone the repository**:
    ```bash
    git clone https://github.com/mdev9/philosophers.git
    cd philosophers
+   ```
+2. **Compile the project**:
+   ```bash
+   cd philo
    make
    ```
-2. **Run the simulation**:
+   or with bonuses:
    ```bash
-   ./philosophers [number_of_philosophers] [time_to_die] [time_to_eat] [time_to_sleep] [optional: max_eat_count]
+   cd philo_bonus
+   make
+   ```
+
+4. **Run the simulation**:
+   ```bash
+   ./philo [number_of_philosophers] [time_to_die] [time_to_eat] [time_to_sleep] [optional: max_eat_count]
+   ```
+   or with bonuses:
+   ```bash
+   ./philo_bonus [number_of_philosophers] [time_to_die] [time_to_eat] [time_to_sleep] [optional: max_eat_count]
    ```
 - `number_of_philosophers`: Total number of philosophers. 👨‍🍳👩‍🍳
 - `time_to_die`: Time (in milliseconds) before a philosopher dies from starvation. ⏳
